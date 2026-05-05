@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lokeshwaran | Aspiring DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#0d0d0d;--paper:#f5f2ee;--accent:#e8643a;--accent2:#3a7bd5;
+  --muted:#7a7a7a;--border:#d8d4ce;--card:#ffffff;--tag:#ede9e3;
+  --dark:#111118;--fd:'Syne',sans-serif;--fm:'DM Mono',monospace;--fb:'DM Sans',sans-serif;
+  --r:16px;--rs:8px;--sh:0 4px 24px rgba(0,0,0,.07);--shl:0 16px 48px rgba(0,0,0,.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:99px}
+
+/* ══ NAV ══ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;height:68px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 5vw;
+  background:rgba(245,242,238,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);transition:box-shadow .3s;
+}
+#nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.09)}
+.nav-logo{font-family:var(--fd);font-weight:800;font-size:1.15rem;letter-spacing:-.5px;flex-shrink:0}
+.nav-logo em{font-style:normal;color:var(--accent)}
+.nav-menu{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-menu a{
+  font-family:var(--fm);font-size:.76rem;font-weight:500;letter-spacing:.04em;
+  color:var(--muted);padding:8px 16px;border-radius:99px;
+  transition:color .2s,background .2s;display:block;
+}
+.nav-menu a:hover,.nav-menu a.active{color:var(--accent)}
+.nav-cta-li a{
+  background:var(--ink)!important;color:#fff!important;
+  margin-left:6px;padding:9px 22px!important;
+  transition:background .2s,transform .15s!important;
+}
+.nav-cta-li a:hover{background:var(--accent)!important;transform:translateY(-1px)!important}
+.burger{
+  display:none;flex-direction:column;justify-content:center;
+  gap:5px;cursor:pointer;z-index:10001;background:none;border:none;padding:4px;
+}
+.burger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:720px){
+  .burger{display:flex}
+  .nav-menu{
+    position:fixed;top:68px;left:0;right:0;bottom:0;
+    flex-direction:column;justify-content:center;align-items:center;gap:6px;
+    background:var(--paper);
+    transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+    z-index:9998;
+  }
+  .nav-menu.open{transform:translateX(0)}
+  .nav-menu a{font-size:1.1rem;padding:14px 40px}
+  .nav-cta-li a{margin-left:0;margin-top:8px}
+}
+
+/* ══ SECTIONS ══ */
+section{padding:96px 5vw}
+.s-lbl{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--fm);font-size:.7rem;font-weight:500;color:var(--accent);
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;
+}
+.s-lbl::before{content:'';width:26px;height:1.5px;background:var(--accent);display:block}
+.s-ttl{font-family:var(--fd);font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:14px}
+.s-sub{font-size:1rem;color:var(--muted);line-height:1.75;max-width:540px;margin-bottom:52px}
+.ac{color:var(--accent)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ══ HERO ══ */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px;position:relative;overflow:hidden}
+.h-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(216,212,206,.45) 1px,transparent 1px),linear-gradient(90deg,rgba(216,212,206,.45) 1px,transparent 1px);background-size:50px 50px}
+.h-blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:.16;pointer-events:none}
+.hb1{width:580px;height:580px;background:var(--accent);top:-120px;right:-80px}
+.hb2{width:500px;height:500px;background:var(--accent2);bottom:-180px;left:-80px}
+.hero-l{display:flex;flex-direction:column;justify-content:center;padding:80px 4vw 80px 5vw;position:relative;z-index:1}
+.h-badge{
+  display:inline-flex;align-items:center;gap:8px;background:var(--tag);
+  border:1px solid var(--border);border-radius:99px;padding:6px 14px 6px 8px;
+  font-family:var(--fm);font-size:.7rem;color:var(--muted);margin-bottom:28px;width:fit-content;
+  animation:fadeUp .6s ease both;
+}
+.bdot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+.h-name{font-family:var(--fd);font-size:clamp(3rem,5.5vw,5.5rem);font-weight:800;line-height:1;letter-spacing:-2px;animation:fadeUp .6s .08s ease both;margin-bottom:6px}
+.h-name .l2{color:var(--accent)}
+.h-role{font-family:var(--fm);font-size:clamp(.78rem,1.1vw,.95rem);color:var(--muted);letter-spacing:.04em;margin-bottom:22px;animation:fadeUp .6s .16s ease both}
+.h-desc{font-size:1.03rem;color:#444;line-height:1.78;max-width:460px;margin-bottom:34px;animation:fadeUp .6s .24s ease both}
+.h-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .6s .32s ease both}
+.btn-p{background:var(--ink);color:#fff;padding:13px 30px;border-radius:99px;font-family:var(--fm);font-size:.8rem;font-weight:500;letter-spacing:.03em;border:none;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;display:inline-flex;align-items:center}
+.btn-p:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,100,58,.3)}
+.btn-s{background:transparent;color:var(--ink);padding:13px 30px;border-radius:99px;font-family:var(--fm);font-size:.8rem;font-weight:500;letter-spacing:.03em;border:1.5px solid var(--border);cursor:pointer;transition:border-color .2s,color .2s,transform .2s;display:inline-flex;align-items:center}
+.btn-s:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.h-stats{display:flex;gap:30px;margin-top:46px;animation:fadeUp .6s .4s ease both}
+.sn{font-family:var(--fd);font-size:1.85rem;font-weight:800;line-height:1}
+.sn em{font-style:normal;color:var(--accent)}
+.sl{font-family:var(--fm);font-size:.65rem;color:var(--muted);margin-top:3px;letter-spacing:.06em}
+.hero-r{display:flex;align-items:center;justify-content:center;padding:60px 5vw 60px 2vw;position:relative;z-index:1;animation:fadeUp .6s .2s ease both}
+.pw{position:relative;width:min(360px,88%)}
+.pshadow{position:absolute;inset:0;top:16px;left:16px;background:var(--accent);border-radius:var(--r);opacity:.14}
+.pcard{position:relative;background:var(--card);border:2px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shl)}
+.pphoto{width:100%;aspect-ratio:4/5;background:linear-gradient(145deg,#e8e3dc,#cdc7bf);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden}
+.pphoto::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(255,255,255,.22) 18px,rgba(255,255,255,.22) 36px)}
+.pico{font-size:3.5rem;position:relative;z-index:1}
+.phint{font-family:var(--fm);font-size:.68rem;color:var(--muted);position:relative;z-index:1}
+.pplate{background:var(--ink);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.pname{font-family:var(--fd);font-weight:700;font-size:1rem}
+.prole{font-family:var(--fm);font-size:.65rem;color:rgba(255,255,255,.55);margin-top:2px}
+.pchip{position:absolute;top:14px;right:14px;background:var(--accent);color:#fff;border-radius:99px;padding:5px 13px;font-family:var(--fm);font-size:.65rem;font-weight:500;z-index:2}
+.fc{position:absolute;background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:11px 15px;box-shadow:var(--sh);font-family:var(--fm);font-size:.7rem;white-space:nowrap}
+.fc1{left:-90px;top:28%;animation:floatY 3.2s ease-in-out infinite}
+.fc2{right:-80px;top:58%;animation:floatY 3.2s .9s ease-in-out infinite}
+.fi{font-size:.95rem;margin-bottom:3px}.fl{color:var(--muted);font-size:.63rem;margin-bottom:1px}.fv{font-weight:500;color:var(--ink)}
+
+/* ══ ABOUT ══ */
+#about{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+#about .s-lbl{color:var(--accent)}
+#about .s-lbl::before{background:var(--accent)}
+#about .s-ttl{color:#fff}
+#about .s-sub{color:rgba(255,255,255,.5)}
+.about-wm{position:absolute;bottom:-30px;right:-20px;font-family:var(--fd);font-size:clamp(70px,13vw,170px);font-weight:800;color:rgba(255,255,255,.025);pointer-events:none;user-select:none;line-height:1}
+.ag{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start}
+.at{font-size:1.05rem;color:rgba(255,255,255,.78);line-height:1.82}
+.at p+p{margin-top:16px}
+.at strong{color:var(--accent);font-weight:600}
+.ar{display:flex;flex-direction:column;gap:18px}
+.aphoto{aspect-ratio:1/1;border-radius:var(--r);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:var(--fm);font-size:.7rem;color:rgba(255,255,255,.3)}
+.aphoto span{font-size:2.8rem}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--rs);padding:14px 16px}
+.cl{font-family:var(--fm);font-size:.62rem;color:rgba(255,255,255,.32);letter-spacing:.08em;margin-bottom:5px}
+.cv{font-family:var(--fd);font-weight:700;font-size:.9rem;color:#fff}
+.cv.open{color:#5dde6a}
+
+/* ══ SKILLS ══ */
+#skills{background:var(--paper)}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.skc{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:26px;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden;cursor:default}
+.skc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.skc:hover{transform:translateY(-5px);box-shadow:var(--shl);border-color:var(--accent)}
+.skc:hover::after{transform:scaleX(1)}
+.ski{font-size:2rem;margin-bottom:12px}
+.skn{font-family:var(--fd);font-weight:700;font-size:1.1rem;margin-bottom:7px}
+.skd{font-size:.86rem;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.skbg{height:4px;background:var(--tag);border-radius:99px;overflow:hidden}
+.skb{height:100%;background:var(--accent);border-radius:99px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.skf{display:flex;justify-content:space-between;align-items:center;margin-top:7px}
+.skp{font-family:var(--fm);font-size:.68rem;color:var(--muted)}
+.skbadge{font-family:var(--fm);font-size:.62rem;font-weight:500;padding:3px 10px;border-radius:99px}
+.bl{background:#fff3cd;color:#856404}.bp{background:#d1e7dd;color:#0a5235}.bb{background:#cfe2ff;color:#084298}
+
+/* ══ PROJECTS ══ */
+#projects{background:#eeeae3}
+.ps{display:flex;flex-direction:column;gap:22px}
+.pc{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:32px;display:grid;grid-template-columns:64px 1fr 44px;gap:24px;align-items:start;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden}
+.pc:hover{transform:translateY(-4px);box-shadow:var(--shl);border-color:var(--accent)}
+.pnum{font-family:var(--fd);font-size:3.2rem;font-weight:800;color:var(--tag);line-height:1;user-select:none;padding-top:4px}
+.ptags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.ptag{font-family:var(--fm);font-size:.65rem;font-weight:500;background:var(--tag);color:var(--muted);padding:4px 11px;border-radius:99px;border:1px solid var(--border)}
+.pttl{font-family:var(--fd);font-weight:700;font-size:1.3rem;margin-bottom:9px;line-height:1.2}
+.pdsc{font-size:.9rem;color:var(--muted);line-height:1.7}
+.parr{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;margin-top:4px;transition:background .2s,border-color .2s,transform .2s;cursor:pointer}
+.pc:hover .parr{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.pbg{position:absolute;right:20px;top:0;bottom:0;font-family:var(--fd);font-size:9rem;font-weight:800;color:rgba(0,0,0,.04);pointer-events:none;user-select:none;display:flex;align-items:center;line-height:1}
+
+/* ══ EVENTS ══ */
+#events{background:var(--paper)}
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ec{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s;display:flex;flex-direction:column}
+.ec:hover{transform:translateY(-6px);box-shadow:var(--shl);border-color:var(--accent)}
+.eph{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#e3dfd8,#cdc8c0);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden}
+.eph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 16px,rgba(255,255,255,.2) 16px,rgba(255,255,255,.2) 32px)}
+.ephico{font-size:3rem;position:relative;z-index:1}
+.ephtxt{font-family:var(--fm);font-size:.68rem;color:var(--muted);position:relative;z-index:1}
+.echip{position:absolute;top:12px;left:12px;z-index:2;color:#fff;font-family:var(--fm);font-size:.63rem;font-weight:500;padding:4px 12px;border-radius:99px}
+.echip.gdc{background:#1a73e8}
+.echip.loc{background:#2e7d32}
+.ebody{padding:24px;flex:1;display:flex;flex-direction:column}
+.edate{font-family:var(--fm);font-size:.68rem;color:var(--accent);letter-spacing:.05em;margin-bottom:8px}
+.ettl{font-family:var(--fd);font-weight:700;font-size:1.15rem;margin-bottom:10px;line-height:1.25}
+.edsc{font-size:.88rem;color:var(--muted);line-height:1.68;flex:1}
+.eftr{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:.68rem;color:var(--muted)}
+.edot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+/* ══ CONTACT ══ */
+#contact{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+#contact .s-lbl{color:var(--accent)}
+#contact .s-lbl::before{background:var(--accent)}
+#contact .s-ttl{color:#fff}
+.cbg{position:absolute;bottom:-50px;right:-20px;font-family:var(--fd);font-size:clamp(80px,14vw,190px);font-weight:800;color:rgba(255,255,255,.023);pointer-events:none;user-select:none;line-height:1}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.cblurb{font-size:1.03rem;color:rgba(255,255,255,.62);line-height:1.78;margin-bottom:28px}
+.scards{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
+.scard{
+  display:flex;align-items:center;gap:18px;border-radius:var(--r);padding:20px 22px;
+  border:1.5px solid rgba(255,255,255,.1);transition:border-color .2s,transform .2s,background .2s;
+  text-decoration:none;position:relative;overflow:hidden;
+}
+.scard:hover{transform:translateX(5px)}
+.sc-gm{background:rgba(234,67,53,.07)}.sc-gm:hover{border-color:#ea4335;background:rgba(234,67,53,.14)}
+.sc-li{background:rgba(10,102,194,.07)}.sc-li:hover{border-color:#0a66c2;background:rgba(10,102,194,.14)}
+.sc-gm .siw{background:#ea4335}.sc-li .siw{background:#0a66c2}
+.siw{width:52px;height:52px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.sbody{flex:1}
+.splatform{font-family:var(--fm);font-size:.65rem;color:rgba(255,255,255,.38);letter-spacing:.08em;margin-bottom:3px}
+.svalue{font-family:var(--fd);font-weight:700;font-size:1rem;color:#fff}
+.ssub{font-family:var(--fm);font-size:.7rem;color:rgba(255,255,255,.4);margin-top:2px}
+.sarrow{font-size:1.2rem;color:rgba(255,255,255,.25);flex-shrink:0;transition:color .2s,transform .2s}
+.scard:hover .sarrow{color:#fff;transform:translateX(4px)}
+.cloc{display:flex;align-items:center;gap:10px;font-family:var(--fm);font-size:.8rem;color:rgba(255,255,255,.38)}
+.cloc span{font-size:1.1rem}
+.fg{margin-bottom:16px}
+.flbl{display:block;font-family:var(--fm);font-size:.65rem;font-weight:500;color:rgba(255,255,255,.38);letter-spacing:.08em;margin-bottom:7px}
+.finp,.fta{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--rs);padding:13px 15px;color:#fff;font-family:var(--fb);font-size:.92rem;outline:none;resize:none;transition:border-color .2s,background .2s}
+.finp::placeholder,.fta::placeholder{color:rgba(255,255,255,.2)}
+.finp:focus,.fta:focus{border-color:var(--accent);background:rgba(255,255,255,.08)}
+.fta{min-height:115px}
+.fbtn{width:100%;background:var(--accent);color:#fff;border:none;padding:15px 32px;border-radius:99px;font-family:var(--fm);font-size:.84rem;font-weight:500;letter-spacing:.04em;cursor:pointer;margin-top:4px;transition:background .2s,transform .2s,box-shadow .2s}
+.fbtn:hover{background:#d4522a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,100,58,.35)}
+
+/* ══ FOOTER ══ */
+footer{background:#080808;padding:24px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--fm);font-size:.7rem;color:rgba(255,255,255,.28)}
+.flogo{font-family:var(--fd);font-weight:800;font-size:1rem;color:#fff}
+.flogo em{font-style:normal;color:var(--accent)}
+footer a{color:var(--accent)}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr}
+  .hero-r{padding:0 5vw 60px}
+  .pw{width:min(320px,100%)}
+  .fc1,.fc2{display:none}
+  .ag{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:1fr}
+  .eg{grid-template-columns:1fr}
+  .pc{grid-template-columns:56px 1fr}
+  .parr,.pbg{display:none}
+}
+@media(max-width:600px){
+  section{padding:70px 4.5vw}
+  .hero-l{padding:56px 4.5vw 36px}
+  .h-stats{gap:20px}
+  .chips{grid-template-columns:1fr}
+  .sg{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ██ NAV ██ -->
+<nav id="nav">
+  <div class="nav-logo">LK<em>.</em></div>
+  <ul class="nav-menu" id="navMenu">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#events">Events</a></li>
+    <li class="nav-cta-li"><a href="#contact">Hire Me</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ██ HERO ██ -->
+<section id="hero">
+  <div class="h-grid"></div>
+  <div class="h-blob hb1"></div>
+  <div class="h-blob hb2"></div>
+
+  <div class="hero-l">
+    <div class="h-badge"><div class="bdot"></div>Open to Internship &amp; Full-time Roles</div>
+    <div class="h-name">Lokesh<br><span class="l2">waran</span></div>
+    <div class="h-role">// Aspiring DevOps Engineer &nbsp;·&nbsp; B.Tech IT &nbsp;·&nbsp; Hindustan University</div>
+    <p class="h-desc">Passionate about building resilient infrastructure and automated pipelines. Currently mastering Docker, Git &amp; Linux — one container at a time.</p>
+    <div class="h-btns">
+      <a href="#projects" class="btn-p">View Projects</a>
+      <a href="#contact" class="btn-s">Let's Connect →</a>
+    </div>
+    <div class="h-stats">
+      <div><div class="sn">3<em>+</em></div><div class="sl">PROJECTS BUILT</div></div>
+      <div><div class="sn">5<em>+</em></div><div class="sl">TOOLS LEARNING</div></div>
+      <div><div class="sn">2</div><div class="sl">EVENTS ATTENDED</div></div>
+    </div>
+  </div>
+
+  <div class="hero-r">
+    <div class="pw">
+      <div class="pshadow"></div>
+      <div class="pcard">
+        <div class="pchip">DevOps</div>
+        <div class="pphoto">
+          <img src="./Assests/Lokesh DP.jpg">
+        </div>
+        <div class="pplate">
+          <div><div class="pname">Lokeshwaran</div><div class="prole">B.Tech IT · Hindustan University</div></div>
+          <span style="font-size:1.4rem">🚀</span>
+        </div>
+      </div>
+      <div class="fc fc1"><div class="fi">🐳</div><div class="fl">Learning Now</div><div class="fv">Docker &amp; Nginx</div></div>
+      <div class="fc fc2"><div class="fi">⚙️</div><div class="fl">Focus Area</div><div class="fv">CI/CD &amp; Linux</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ ABOUT ██ -->
+<section id="about">
+  <div class="about-wm">DEVOPS</div>
+  <div class="s-lbl rv">Who I Am</div>
+  <div class="s-ttl rv">Building the <span class="ac">bridge</span><br>between code &amp; infra.</div>
+  <div class="ag">
+    <div class="at rv">
+      <p>Hey! I'm <strong>Lokeshwaran</strong>, a final-year B.Tech Information Technology student at <strong>Hindustan University</strong>. I'm deeply passionate about the world of DevOps — bridging development and operations to build faster, more reliable software.</p>
+      <p>My journey started when I realized great code needs great infrastructure. Since then I've been hands-on with <strong>Docker, Git, Nginx, and Linux</strong>, building real projects that solve real problems.</p>
+      <p>I think about deployment, scalability, and automation from day one. I'm actively seeking opportunities where I can contribute, learn, and grow in a DevOps-first environment.</p>
+    </div>
+    <div class="ar">
+      <div class="aphoto rv d1"><span></span><img src="/Assests/29.jpeg"></div>
+      <div class="chips">
+        <div class="chip rv d1"><div class="cl">UNIVERSITY</div><div class="cv">Hindustan Univ.</div></div>
+        <div class="chip rv d2"><div class="cl">DEGREE</div><div class="cv">B.Tech IT</div></div>
+        <div class="chip rv d3"><div class="cl">ROLE TARGET</div><div class="cv">DevOps Eng.</div></div>
+        <div class="chip rv d4"><div class="cl">STATUS</div><div class="cv open">Open to Work ✓</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ SKILLS ██ -->
+<section id="skills">
+  <div class="s-lbl rv">My Toolkit</div>
+  <div class="s-ttl rv">Skills &amp; <span class="ac">Technologies</span></div>
+  <div class="s-sub rv">Building a strong foundation in the core tools that power modern DevOps pipelines.</div>
+  <div class="sg">
+    <div class="skc rv"><div class="ski">🔀</div><div class="skn">Git &amp; Version Control</div><div class="skd">Branching, merging, pull requests, and collaborative workflows on GitHub.</div><div class="skbg"><div class="skb" data-w="72"></div></div><div class="skf"><span class="skp">72%</span><span class="skbadge bp">Practiced</span></div></div>
+    <div class="skc rv d1"><div class="ski">🐳</div><div class="skn">Docker</div><div class="skd">Containerizing apps, writing Dockerfiles, docker-compose for multi-service setups.</div><div class="skbg"><div class="skb" data-w="65"></div></div><div class="skf"><span class="skp">65%</span><span class="skbadge bb">Building</span></div></div>
+    <div class="skc rv d2"><div class="ski">🌐</div><div class="skn">Nginx</div><div class="skd">Web server config, reverse proxying, and serving static applications.</div><div class="skbg"><div class="skb" data-w="55"></div></div><div class="skf"><span class="skp">55%</span><span class="skbadge bl">Learning</span></div></div>
+    <div class="skc rv"><div class="ski">🐧</div><div class="skn">Linux</div><div class="skd">CLI, file management, shell scripting, and system administration basics.</div><div class="skbg"><div class="skb" data-w="60"></div></div><div class="skf"><span class="skp">60%</span><span class="skbadge bl">Learning</span></div></div>
+    <div class="skc rv d1"><div class="ski">☁️</div><div class="skn">Cloud &amp; Deployment</div><div class="skd">Cloud fundamentals, deploying applications, and managing environments.</div><div class="skbg"><div class="skb" data-w="45"></div></div><div class="skf"><span class="skp">45%</span><span class="skbadge bl">Learning</span></div></div>
+    <div class="skc rv d2"><div class="ski">⚙️</div><div class="skn">CI/CD Concepts</div><div class="skd">Understanding pipelines, automation, and continuous integration workflows.</div><div class="skbg"><div class="skb" data-w="40"></div></div><div class="skf"><span class="skp">40%</span><span class="skbadge bl">Exploring</span></div></div>
+  </div>
+</section>
+
+<!-- ██ PROJECTS ██ -->
+<section id="projects">
+  <div class="s-lbl rv">What I've Built</div>
+  <div class="s-ttl rv">Featured <span class="ac">Projects</span></div>
+  <div class="s-sub rv">Hands-on projects applying real DevOps concepts — containerization, deployment &amp; automation.</div>
+  <div class="ps">
+    <div class="pc rv">
+      <div class="pbg">01</div>
+      <div class="pnum">01</div>
+      <div>
+        <div class="ptags"><span class="ptag">Docker</span><span class="ptag">Nginx</span><span class="ptag">Linux</span><span class="ptag">Deployment</span></div>
+        <div class="pttl">Dockerized Website Deployment</div>
+        <div class="pdsc">Containerized a full static website using Docker and served it via Nginx. Configured Dockerfile, built the image, and deployed it on Linux. Practiced port mapping, volume mounts, and container networking fundamentals.</div>
+      </div>
+      <div class="parr">↗</div>
+    </div>
+    <div class="pc rv">
+      <div class="pbg">02</div>
+      <div class="pnum">02</div>
+      <div>
+        <div class="ptags"><span class="ptag">Docker Compose</span><span class="ptag">Multi-Container</span><span class="ptag">Networking</span></div>
+        <div class="pttl">Multi-Container Setup using Docker</div>
+        <div class="pdsc">Built a multi-service application stack using Docker Compose. Orchestrated front-end and back-end services with shared networking, environment variables, and inter-container communication — simulating a real microservices architecture.</div>
+      </div>
+      <div class="parr">↗</div>
+    </div>
+    <div class="pc rv">
+      <div class="pbg">03</div>
+      <div class="pnum">03</div>
+      <div>
+        <div class="ptags"><span class="ptag">HTML/CSS</span><span class="ptag">Git</span><span class="ptag">Docker</span><span class="ptag">DevOps</span></div>
+        <div class="pttl">DevOps Portfolio Website</div>
+        <div class="pdsc">Designed and deployed a personal portfolio showcasing DevOps projects, version-controlled with Git, containerized with Docker, and served via Nginx. This project itself is a live demonstration of the skills I've been developing.</div>
+      </div>
+      <div class="parr">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ EVENTS ██ -->
+<section id="events">
+  <div class="s-lbl rv">Where I've Been</div>
+  <div class="s-ttl rv">Events <span class="ac">Attended</span></div>
+  <div class="s-sub rv">Two defining events that expanded my DevOps perspective and connected me with the tech community.</div>
+  <div class="eg">
+
+    <!-- GDC -->
+    <div class="ec rv">
+      <div class="eph">
+        <div class="echip gdc">Google Dev Community</div>
+        <div class="ephico">📸</div>
+        <div class="ephtxt">[ Your GDC Event Photo Here ]</div>
+      </div>
+      <div class="ebody">
+        <div class="edate">2024 — GDC EVENT</div>
+        <div class="ettl">Google Developer Community (GDC) Event</div>
+        <div class="edsc">Attended a GDC community event featuring talks on cloud infrastructure, DevOps best practices, and real-world deployment workflows. Got insights from Google Developer Experts and connected with like-minded tech enthusiasts. The sessions on containerization and cloud-native development directly aligned with my DevOps learning path.</div>
+        <div class="eftr"><div class="edot"></div>Google Developer Community · Chennai, Tamil Nadu</div>
+      </div>
+    </div>
+
+    <!-- Local -->
+    <div class="ec rv d1">
+      <div class="eph">
+        <div class="echip loc">Code On JVM</div>
+        <div class="ephico">📸</div>
+        <div class="ephtxt">[ Your Local Event Photo Here ]</div>
+      </div>
+      <div class="ebody">
+        <div class="edate">Code On JVM - 2024</div>
+        <div class="ettl">Java Technical Meetup &amp; Workshop</div>
+        <div class="edsc">Participated in a local technology event focused on hands-on sessions covering Linux systems, version control practices, and introductory DevOps workflows. Collaborated with peers, exchanged ideas, and gained practical exposure to real toolchains used in the industry — a great boost to my confidence and technical understanding.</div>
+        <div class="eftr"><div class="edot"></div>Local Tech Community · Tamil Nadu</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ██ CONTACT ██ -->
+<section id="contact">
+  <div class="cbg">CONNECT</div>
+  <div class="s-lbl">Let's Talk</div>
+  <div class="s-ttl">Open to <span class="ac">Opportunities</span></div>
+  <div class="cgrid">
+    <!-- Left -->
+    <div>
+      <p class="cblurb">I'm actively looking for internship and full-time DevOps roles where I can contribute, grow, and build reliable systems. Reach out via Gmail or LinkedIn — I'd love to connect!</p>
+      <div class="scards">
+        <!-- Gmail -->
+        <a href="mailto:lokeshwarangk0705@gmail.com" class="scard sc-gm">
+          <div class="siw">📧</div>
+          <div class="sbody">
+            <div class="splatform">EMAIL — GMAIL</div>
+            <div class="svalue">lokeshwarangk0705@gmail.com</div>
+            <div class="ssub">Click to send me an email directly</div>
+          </div>
+          <div class="sarrow">→</div>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/lokesh-waran-98a362244" target="_blank" rel="noopener" class="scard sc-li">
+          <div class="siw">💼</div>
+          <div class="sbody">
+            <div class="splatform">LINKEDIN PROFILE</div>
+            <div class="svalue">lokesh-waran-98a362244</div>
+            <div class="ssub">View my full profile &amp; connect</div>
+          </div>
+          <div class="sarrow">→</div>
+        </a>
+      </div>
+      <div class="cloc"><span>📍</span> Chennai, Tamil Nadu, India</div>
+    </div>
+    <!-- Right — form -->
+    <div>
+      <div class="fg"><label class="flbl">YOUR NAME</label><input type="text" class="finp" placeholder="e.g. Priya from TechCorp" /></div>
+      <div class="fg"><label class="flbl">YOUR EMAIL</label><input type="email" class="finp" placeholder="hello@company.com" /></div>
+      <div class="fg"><label class="flbl">MESSAGE</label><textarea class="fta" placeholder="Tell me about the opportunity…"></textarea></div>
+      <button class="fbtn" id="sendBtn">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ██ FOOTER ██ -->
+<footer>
+  <div class="flogo">LK<em>.</em></div>
+  <div>Built with ❤️ by Lokeshwaran &nbsp;·&nbsp; Aspiring DevOps Engineer</div>
+  <div>© 2024 &nbsp;·&nbsp; <a href="mailto:lokeshwarangk0705@gmail.com">lokeshwarangk0705@gmail.com</a></div>
+</footer>
+
+<script>
+/* NAV — scroll shadow */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
+
+/* NAV — hamburger */
+const burger  = document.getElementById('burger');
+const navMenu = document.getElementById('navMenu');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  navMenu.classList.toggle('open');
+});
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open');
+  navMenu.classList.remove('open');
+}));
+
+/* NAV — active link highlight */
+const secs = [...document.querySelectorAll('section[id]')];
+const links = [...navMenu.querySelectorAll('a')];
+function markActive() {
+  let cur = secs[0].id;
+  secs.forEach(s => { if (scrollY + 80 >= s.offsetTop) cur = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', markActive, { passive: true });
+markActive();
+
+/* REVEAL on scroll */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+/* SKILL BARS */
+const bo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skb').forEach(b => setTimeout(() => b.style.width = b.dataset.w + '%', 180));
+      bo.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.25 });
+document.querySelectorAll('.skc').forEach(c => bo.observe(c));
+
+/* FORM submit */
+document.getElementById('sendBtn').addEventListener('click', function () {
+  const fields = document.querySelectorAll('.finp, .fta');
+  const empty  = [...fields].some(f => !f.value.trim());
+  if (empty) {
+    this.textContent = '⚠ Please fill all fields';
+    this.style.background = '#b91c1c';
+    setTimeout(() => { this.textContent = 'Send Message →'; this.style.background = ''; }, 2200);
+    return;
+  }
+  this.textContent = '✓ Message Sent!';
+  this.style.background = '#15803d';
+  fields.forEach(f => f.value = '');
+  setTimeout(() => { this.textContent = 'Send Message →'; this.style.background = ''; }, 3000);
+});
+</script>
+</body>
+</html>
