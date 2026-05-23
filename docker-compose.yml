@@ -1,0 +1,5 @@
+Services:
+Portfolio:
+Build: .
+Ports: 
+    - "8080:80"
